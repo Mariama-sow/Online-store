@@ -1,0 +1,162 @@
+{% extends 'products/Layout.html' %}
+{% load static %}
+
+{% block title %}Confirmation de commande | VégéMarket{% endblock %}
+
+{% block extra_css %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+        <div class="col-12 text-center mb-4">
+            <div class="order-status mb-3">
+                <i class="fas fa-check-circle fa-4x"></i>
+            </div>
+            <h1 class="h3">Commande confirmée</h1>
+            <p class="text-muted">Merci pour votre commande ! Votre numéro de commande est <strong>#{{ order.uid|slice:":8" }}</strong></p>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-8 mx-auto">
+            <!-- Détails de la commande -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0"><i class="fas fa-info-circle text-success me-2"></i>Détails de la commande</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <h6>Informations de commande</h6>
+                            <p class="mb-1"><strong>Numéro de commande:</strong> #{{ order.uid|slice:":8" }}</p>
+                            <p class="mb-1"><strong>Date:</strong> {{ order.created_at|date:"d/m/Y à H:i" }}</p>
+                            <p class="mb-1"><strong>Total:</strong> {{ order.total }} €</p>
+                            <p class="mb-0"><strong>Statut:</strong> <span class="badge bg-success">Confirmée</span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Adresse de livraison</h6>
+                            <p class="mb-0">{{ order.shipping_address }}</p>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <h6>Articles commandés</h6>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Produit</th>
+                                    <th class="text-center">Prix unitaire</th>
+                                    <th class="text-center">Quantité</th>
+                                    <th class="text-end">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in order.items.all %}
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            {% if item.product.image %}
+                                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="product-img rounded me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                                            {% else %}
+                                            <img src="{% static 'images/default-product.jpg' %}" alt="{{ item.product.name }}" class="product-img rounded me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                                            {% endif %}
+                                            <div>
+                                                {{ item.product.name }}
+                                                {% if item.product.is_bio %}
+                                                <div><span class="badge bg-success"><i class="fas fa-leaf me-1"></i>Bio</span></div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">{{ item.purchase_price }} FG</td>
+                                    <td class="text-center">{{ item.quantity }}</td>
+                                    <td class="text-end">{{ item.purchase_price|floatformat:2 }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3" class="text-end fw-bold">Sous-total:</td>
+                                    <td class="text-end">{{ order.total|floatformat:2 }} FG</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="text-end fw-bold">Frais de livraison:</td>
+                                    <td class="text-end">
+                                        {% if order.total >= 100000 %}
+                                        0.00 FG
+                                        {% else %}
+                                        20000 FG
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="text-end fw-bold">Total:</td>
+                                    <td class="text-end fw-bold">
+                                        {% if order.total >= 50 %}
+                                        {{ order.total|floatformat:2 }} FG
+                                        {% else %}
+                                        {{ order.total|add:"4.95"|floatformat:2 }} €
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Suivi de commande -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0"><i class="fas fa-truck text-success me-2"></i>Suivi de commande</h5>
+                </div>
+                <div class="card-body">
+                    <div class="timeline mt-3">
+                        <div class="timeline-step mb-3">
+                            <h6 class="mb-1">Commande confirmée</h6>
+                            <small class="text-muted">{{ order.created_at|date:"d/m/Y à H:i" }}</small>
+                            <p class="text-muted mb-0 small">Votre commande a été reçue et est en cours de traitement.</p>
+                        </div>
+                        <div class="timeline-step mb-3">
+                            <h6 class="mb-1">Préparation en cours</h6>
+                            <small class="text-muted">Prévue pour {{ order.created_at|date:"d/m/Y"|add:"+1 day" }}</small>
+                            <p class="text-muted mb-0 small">Nos équipes préparent vos produits frais.</p>
+                        </div>
+                        <div class="timeline-step">
+                            <h6 class="mb-1">Livraison</h6>
+                            <small class="text-muted">Prévue pour {{ order.created_at|date:"d/m/Y"|add:"+2 days" }}</small>
+                            <p class="text-muted mb-0 small">Votre commande vous sera livrée à l'adresse indiquée.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Actions et informations -->
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="d-grid">
+                                <a href="{% url 'products:product_list' %}" class="btn btn-outline-success">
+                                    <i class="fas fa-arrow-left me-2"></i>Continuer mes achats
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-grid">
+                                <a href="#" class="btn btn-success" onclick="window.print(); return false;">
+                                    <i class="fas fa-print me-2"></i>Imprimer la confirmation
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

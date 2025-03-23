@@ -1,0 +1,252 @@
+.product-imge {
+  max-height: 400px;
+  object-fit: contain;
+}
+.review-avatar {
+  width: 50px;
+  height: 50px;
+}
+.star-rating .fa-star.checked {
+  color: #ffc107;
+}
+.star-rating .fa-star {
+  color: #e4e5e9;
+}
+
+.separator {
+  width: 50px;
+  height: 3px;
+}
+
+.product-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.product-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+.feature-icon {
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.product-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  z-index: 1;
+}
+
+.product-image {
+  height: 200px;
+  object-fit: cover;
+}
+
+.active-filter {
+  background-color: #198754 !important;
+  color: white !important;
+  border-color: #198754 !important;
+}
+
+.product-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+.quantity-input {
+  max-width: 80px;
+}
+.cart-summary {
+  position: sticky;
+  top: 20px;
+}
+
+.form-control:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.cart-summary {
+  position: sticky;
+  top: 20px;
+}
+
+.product-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+}
+
+.order-status {
+  width: 120px;
+  height: 120px;
+  background-color: #ecf7ee;
+  color: #28a745;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.timeline-step {
+  position: relative;
+  padding-bottom: 1rem;
+  padding-left: 2rem;
+}
+
+.timeline-step:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: #e9ecef;
+}
+
+.timeline-step:after {
+  content: "";
+  position: absolute;
+  left: -6px;
+  top: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #28a745;
+}
+
+.timeline-step:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-step:last-child:before {
+  bottom: 50%;
+}
+
+.paypal-button {
+  background-color: #0070ba;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 100%;
+}
+.paypal-button:hover {
+  background-color: #003087;
+}
+
+.orange-money-button {
+  background-color: #ff6600;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 100%;
+}
+.orange-money-button:hover {
+  background-color: #e35d00;
+}
+
+.paycard-button {
+  background-color: #24b47e;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 100%;
+}
+.paycard-button:hover {
+  background-color: #1d9667;
+}
+
+.payment-method-selector {
+  margin-bottom: 20px;
+}
+.payment-option {
+  display: none;
+}
+.payment-option.active {
+  display: block;
+}
+
+.payment-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.star-rating-input label {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.star-rating-input label:hover {
+  transform: scale(1.2);
+}
+
+.star-rating-input label i {
+  color: #FFD700; /* Couleur jaune pour les étoiles */
+}
+
+.star-rating-input label .far.fa-star {
+  color: #ccc; /* Couleur grise pour les étoiles vides */
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* Animation pour la soumission du formulaire */
+@keyframes submitPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+form[action*="add_review"] button[type="submit"]:hover {
+  animation: submitPulse 1s infinite;
+}
