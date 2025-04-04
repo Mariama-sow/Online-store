@@ -38,7 +38,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('password_reset_confirm/<str:uidb64>/<str:token>/',
          PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-    path('product/', include('products.urls')),
+    path('', include('products.urls')),
     path('cart/', include('cart.urls')),
     path('order/', include('orders.urls')),
     path('review/', include('reviews.urls')),
