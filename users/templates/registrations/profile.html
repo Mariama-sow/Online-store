@@ -24,7 +24,7 @@
                     
                     <div class="text-center mb-4">
                         {% if user.profil %}
-                            <img src="{{ user.profil.url }}" alt="Photo de profil" class="rounded-circle img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
+                            <img src="{{ user.profil_url }}" alt="Photo de profil" class="rounded-circle img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
                         {% else %}
                             <div class="rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto" style="width: 150px; height: 150px;">
                                 <i class="fas fa-user fa-4x text-secondary"></i>

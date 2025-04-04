@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django.db.models import F
@@ -34,7 +35,17 @@ class Product(models.Model):
     price = models.DecimalField(
         max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
     quantity= models.IntegerField()
-    image = models.ImageField(upload_to='product')
+
+    if not settings.DEBUG:
+        from cloudinary.models import CloudinaryField
+        image = CloudinaryField('image', folder='products')
+    else:
+        image = models.ImageField(upload_to='products/')
+    
+    def image_url(self):
+        if settings.DEBUG:
+            return self.image.url if self.image else ''
+        return self.image.url if hasattr(self.image, 'url') else ''
     category = models.ForeignKey(
         Category, on_delete=models.DO_NOTHING, related_name="products"
     )
