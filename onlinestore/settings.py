@@ -158,7 +158,7 @@ AUTHENTICATION_BACKENDS = [
 
 
 # settings.py
-DOMAIN_URL = "127.0.0.1:8000"
+DOMAIN_URL = "online-store-mdhv.onrender.com"
 
 # Configuration de cloudnary pour les fichiers media 
 if not DEBUG:  
