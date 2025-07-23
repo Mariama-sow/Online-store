@@ -172,31 +172,31 @@ DOMAIN_URL = "online-store-mdhv.onrender.com"
 
 # Configuration de cloudnary pour les fichiers media 
 
-if not DEBUG:
-    try:
-        import cloudinary_storage  # Vérifie si le package est installé
+# if not DEBUG:
+#     try:
+#         import cloudinary_storage  # Vérifie si le package est installé
         
-        INSTALLED_APPS += [
-            'cloudinary_storage',
-            'cloudinary',
-        ]
+#         INSTALLED_APPS += [
+#             'cloudinary_storage',
+#             'cloudinary',
+#         ]
 
-        CLOUDINARY_STORAGE = {
-            'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME', default=None),
-            'API_KEY': config('CLOUDINARY_API_KEY', default=None),
-            'API_SECRET': config('CLOUDINARY_API_SECRET', default=None),
-            'SECURE': True,
-        }
+#         CLOUDINARY_STORAGE = {
+#             'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME', default=None),
+#             'API_KEY': config('CLOUDINARY_API_KEY', default=None),
+#             'API_SECRET': config('CLOUDINARY_API_SECRET', default=None),
+#             'SECURE': True,
+#         }
         
-        DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-    except ImportError:
-        # Fallback vers le stockage local si Cloudinary n'est pas installé
-        DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-        MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-else:
-    # Configuration développement
-    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+#         DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+#     except ImportError:
+#         # Fallback vers le stockage local si Cloudinary n'est pas installé
+#         DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+#         MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# else:
+#     # Configuration développement
+#     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+#     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  
