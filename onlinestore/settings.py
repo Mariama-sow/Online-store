@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", "False") == "True"
+DEBUG = config("DEBUG", "False") == "True"
 SECRET_KEY = config("SECRET_KEY")
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost","online-store-mdhv.onrender.com","marvegemarket.pythonanywhere.com"]
@@ -175,9 +175,9 @@ if not DEBUG:
     ]
 
     CLOUDINARY_STORAGE = {
-        'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
-        'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
-        'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
+        'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME'),
+        'API_KEY': config('CLOUDINARY_API_KEY'),
+        'API_SECRET': config('CLOUDINARY_API_SECRET'),
         'SECURE': True,
     }
 
