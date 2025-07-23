@@ -15,6 +15,9 @@ import os
 import dj_database_url
 from dotenv import load_dotenv
 from decouple import config
+import cloudinary
+import cloudinary.uploader
+import cloudinary_storage
 load_dotenv() 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -164,27 +167,35 @@ AUTHENTICATION_BACKENDS = [
 
 
 
-# settings.py
+
 DOMAIN_URL = "online-store-mdhv.onrender.com"
 
 # Configuration de cloudnary pour les fichiers media 
-if not DEBUG:  
-    INSTALLED_APPS += [
-        'cloudinary_storage',
-        'cloudinary',
-    ]
 
-    CLOUDINARY_STORAGE = {
-        'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME'),
-        'API_KEY': config('CLOUDINARY_API_KEY'),
-        'API_SECRET': config('CLOUDINARY_API_SECRET'),
-        'SECURE': True,
-    }
+if not DEBUG:
+    try:
+        import cloudinary_storage  # Vérifie si le package est installé
+        
+        INSTALLED_APPS += [
+            'cloudinary_storage',
+            'cloudinary',
+        ]
 
-    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-    MEDIA_URL = '/media/'  # Important pour la cohérence des URLs
-
-else:  
-    # En mode développement, Django stocke les fichiers localement
-    MEDIA_URL = '/media/'
+        CLOUDINARY_STORAGE = {
+            'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME', default=None),
+            'API_KEY': config('CLOUDINARY_API_KEY', default=None),
+            'API_SECRET': config('CLOUDINARY_API_SECRET', default=None),
+            'SECURE': True,
+        }
+        
+        DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    except ImportError:
+        # Fallback vers le stockage local si Cloudinary n'est pas installé
+        DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+        MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+else:
+    # Configuration développement
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = '/media/'  # Gardez cette ligne dans tous les cas

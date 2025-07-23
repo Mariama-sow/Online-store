@@ -35,17 +35,12 @@ class Product(models.Model):
     price = models.DecimalField(
         max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
     quantity= models.IntegerField()
-
-    if not settings.DEBUG:
-        from cloudinary.models import CloudinaryField
-        image = CloudinaryField('image', folder='products')
-    else:
-        image = models.ImageField(upload_to='products/')
-    
-    def image_url(self):
-        if settings.DEBUG:
-            return self.image.url if self.image else ''
-        return self.image.url if hasattr(self.image, 'url') else ''
+    profil = models.ImageField(
+        upload_to='profils/',
+        default='profils/default.jpg',
+        storage=None,  # Utilisera le storage par défaut
+        blank=True
+    )
     category = models.ForeignKey(
         Category, on_delete=models.DO_NOTHING, related_name="products"
     )
