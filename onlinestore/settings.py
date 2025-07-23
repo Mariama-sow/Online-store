@@ -46,6 +46,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 
+DOMAIN_URL='marvegemarket.pythonanywhere.com'
 
 
 
@@ -168,7 +169,7 @@ AUTHENTICATION_BACKENDS = [
 
 
 
-DOMAIN_URL = "online-store-mdhv.onrender.com"
+
 
 # Configuration de cloudnary pour les fichiers media 
 
